@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 nalgebra = "0.31.2"
 png = "0.17.6"
+rand = "0.8.5"

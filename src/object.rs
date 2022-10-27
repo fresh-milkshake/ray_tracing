@@ -5,13 +5,27 @@ use nalgebra::Vector3;
 
 #[derive(Clone, Copy)]
 pub struct Material {
-    pub diffuse_color: Vector3<f64>
+    pub diffuse_color: Vector3<f64>,
+    pub albedo: Vector3<f64>,
+    pub specular_exponent: f64
+}
+
+impl Default for Material {
+    fn default() -> Self {
+        Material {
+            diffuse_color: Vector3::new(1.0, 0.0, 0.0),
+            albedo: Vector3::new(1.0, 0.0, 0.0),
+            specular_exponent: 0.0
+        }
+    }
 }
 
 impl Material {
-    pub fn new(diffuse_color: Vector3<f64>) -> Material {
+    pub fn new(albedo: Vector3<f64>, diffuse_color: Vector3<f64>, specular_exponent: f64) -> Material {
         Material {
-            diffuse_color
+            diffuse_color,
+            albedo,
+            specular_exponent
         }
     }
 }
