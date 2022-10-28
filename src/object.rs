@@ -1,6 +1,3 @@
-use std::fmt::Formatter;
-use core::fmt::Debug;
-
 use nalgebra::Vector3;
 
 #[derive(Clone, Copy)]
@@ -27,14 +24,6 @@ impl Material {
             albedo,
             specular_exponent
         }
-    }
-}
-
-impl Debug for Material {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Material")
-            .field("diffuse_color", &self.diffuse_color)
-            .finish()
     }
 }
 
@@ -65,33 +54,6 @@ impl Sphere {
     /// 
     /// bool - Whether the ray intersects the sphere or not
     /// 
-    /// ### Notes
-    /// 
-    /// The ray is defined by the parametric equation:
-    /// 
-    /// `P(t) = ray_origin + t * ray_direction`
-    /// 
-    /// The sphere is defined by the equation:
-    /// 
-    /// `(P(t) - center) * (P(t) - center) = radius * radius`
-    /// 
-    /// ### Example
-    /// 
-    /// ```
-    /// use nalgebra::Vector3;
-    /// use raytracer::Sphere;
-    /// 
-    /// let sphere = Sphere::new(Vector3::new(0.0, 0.0, 0.0), 1.0);
-    /// let ray_origin = Vector3::new(0.0, 0.0, 0.0);
-    /// let ray_direction = Vector3::new(0.0, 0.0, 1.0);
-    /// 
-    /// let t0 = 0.0;
-    /// let t1 = 0.0;
-    /// 
-    /// let intersects = sphere.intersect(ray_origin, ray_direction, &mut t0, &mut t1);
-    /// 
-    /// assert_eq!(intersects, true);
-    /// ```
     #[warn(unused_assignments)]
     pub fn ray_intersect(&self, ray_origin: Vector3<f64>, dir: Vector3<f64>, mut t0: f64) -> (bool, f64) {
         let l: Vector3<f64> = self.center - ray_origin;
@@ -106,13 +68,6 @@ impl Sphere {
         (true, t0)
     }
 }
-
-impl Debug for Sphere {
-    fn fmt(&self, f: &mut Formatter) -> Result<(), std::fmt::Error> {
-        write!(f, "Sphere {{ center: {:?}, radius: {:?}, material: {:?} }}", self.center, self.radius, self.material)
-    }
-}
-
 
 pub struct Light {
     pub position: Vector3<f64>,
